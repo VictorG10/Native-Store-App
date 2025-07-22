@@ -1,5 +1,6 @@
 import ProductCard from "@/components/ProductCard";
 import { Product } from "@/types/product";
+import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -11,6 +12,7 @@ import {
 } from "react-native";
 
 export default function HomeScreen() {
+  const router = useRouter();
   const [featured, setFeatured] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 

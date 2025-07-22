@@ -17,6 +17,7 @@ export default function ProductDetailScreen() {
   useEffect(() => {
     const loadProduct = async () => {
       try {
+        if (!id) return;
         const res = await fetch(`https://fakestoreapi.com/products/${id}`);
         if (!res.ok) throw new Error("Invalid response");
         const data = await res.json();

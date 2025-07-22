@@ -2,7 +2,7 @@ import FilterBar from "@/components/FilterBar";
 import ProductCard from "@/components/ProductCard";
 import { fetchCategories, fetchProducts } from "@/services/api";
 import { Product } from "@/types/product";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -18,7 +18,7 @@ import {
 const ITEMS_PER_PAGE = 6;
 
 export default function ProductListScreen() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>(["All"]);
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -27,7 +27,6 @@ export default function ProductListScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     const load = async () => {
