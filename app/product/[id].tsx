@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Text,
 } from "react-native";
-import { Product } from "../../../types/product";
+import { Product } from "../../types/product";
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams();
@@ -19,7 +19,7 @@ export default function ProductDetailScreen() {
       try {
         if (!id) return;
         const res = await fetch(`https://fakestoreapi.com/products/${id}`);
-        if (!res.ok) throw new Error("Invalid response");
+        if (!res.ok) throw new Error(`Invalid response for product ${id}`);
         const data = await res.json();
         setProduct(data);
       } catch (error) {
