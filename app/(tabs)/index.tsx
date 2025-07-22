@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import ProductCard from "@/components/ProductCard";
 import { Product } from "@/types/product";
 import { useRouter } from "expo-router";
@@ -6,7 +7,6 @@ import {
   ActivityIndicator,
   Button,
   FlatList,
-  Image,
   Pressable,
   StyleSheet,
   Text,
@@ -40,12 +40,8 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{
-          uri: "https://cdn-icons-png.flaticon.com/512/1170/1170576.png",
-        }}
-        style={styles.image}
-      />
+      <Header />
+
       <Text style={styles.title}>Welcome to Fake Store</Text>
       <Text style={styles.subtitle}>Your one-stop shop for mock products.</Text>
 
@@ -69,6 +65,7 @@ export default function HomeScreen() {
               <ProductCard product={item} />
             </Pressable>
           )}
+          showsVerticalScrollIndicator={false}
         />
       )}
     </View>
@@ -77,7 +74,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20 },
-  image: { width: 100, height: 100, alignSelf: "center", marginBottom: 20 },
+
   title: {
     fontSize: 24,
     fontWeight: "bold",

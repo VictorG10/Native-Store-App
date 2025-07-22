@@ -94,6 +94,7 @@ export default function ProductListScreen() {
                 <ProductCard product={item} />
               </Pressable>
             )}
+            showsVerticalScrollIndicator={false}
           />
           {hasMore && (
             <Button title="Load More" onPress={() => setPage(page + 1)} />
