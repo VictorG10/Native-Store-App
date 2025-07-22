@@ -1,9 +1,8 @@
 import FilterBar from "@/components/FilterBar";
 import ProductCard from "@/components/ProductCard";
-import { fetchCategories, fetchProducts } from "@/services/api";
-import { Product } from "@/types/product";
+import { useProductStore } from "@/stores/useProductStore";
 import { useRouter } from "expo-router";
-import React, { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import {
   ActivityIndicator,
   Button,
@@ -18,43 +17,49 @@ import {
 const ITEMS_PER_PAGE = 6;
 
 export default function ProductListScreen() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<string[]>(["All"]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [sortOption, setSortOption] = useState("default");
-  const [maxPrice, setMaxPrice] = useState(1000);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const {
+    products,
+    categories,
+    selectedCategory,
+    setSelectedCategory,
+    sortOption,
+    setSortOption,
+    maxPrice,
+    setMaxPrice,
+    searchQuery,
+    setSearchQuery,
+    page,
+    setPage,
+    loading,
+    loadData,
+  } = useProductStore();
 
   useEffect(() => {
-    const load = async () => {
-      setLoading(true);
-      const [prod, cats] = await Promise.all([
-        fetchProducts(),
-        fetchCategories(),
-      ]);
-      setProducts(prod);
-      setCategories(cats);
-      setLoading(false);
-    };
-    load();
+    loadData();
   }, []);
 
-  const filtered = products.filter(
-    (p) =>
-      (selectedCategory === "All" || p.category === selectedCategory) &&
-      p.price <= maxPrice &&
-      p.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const filtered = useMemo(
+    () =>
+      products.filter(
+        (p) =>
+          (selectedCategory === "All" || p.category === selectedCategory) &&
+          p.price <= maxPrice &&
+          p.title.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+    [products, selectedCategory, maxPrice, searchQuery]
   );
 
-  const sorted = [...filtered].sort((a, b) => {
-    if (sortOption === "price-asc") return a.price - b.price;
-    if (sortOption === "price-desc") return b.price - a.price;
-    if (sortOption === "name") return a.title.localeCompare(b.title);
-    return 0;
-  });
+  const sorted = useMemo(() => {
+    const sortedCopy = [...filtered];
+    if (sortOption === "price-asc")
+      return sortedCopy.sort((a, b) => a.price - b.price);
+    if (sortOption === "price-desc")
+      return sortedCopy.sort((a, b) => b.price - a.price);
+    if (sortOption === "name")
+      return sortedCopy.sort((a, b) => a.title.localeCompare(b.title));
+    return sortedCopy;
+  }, [filtered, sortOption]);
 
   const paginated = sorted.slice(0, page * ITEMS_PER_PAGE);
   const hasMore = paginated.length < sorted.length;
@@ -91,7 +96,7 @@ export default function ProductListScreen() {
             )}
           />
           {hasMore && (
-            <Button title="Load More" onPress={() => setPage((p) => p + 1)} />
+            <Button title="Load More" onPress={() => setPage(page + 1)} />
           )}
         </>
       )}

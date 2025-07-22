@@ -1,50 +1,70 @@
-# Welcome to your Expo app 👋
+🛒 Native Store App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern React Native e-commerce app built with Expo Router, Zustand, and FakeStoreAPI.
 
-## Get started
+✨ Features
 
-1. Install dependencies
+🧭 Navigation with Expo Router (Tabs + Dynamic Screens)
 
-   ```bash
-   npm install
-   ```
+🛍 Product listing with filters, sort, pagination
 
-2. Start the app
+🔍 Search functionality
 
-   ```bash
-   npx expo start
-   ```
+🧰 Zustand global state for filters/products
 
-In the output, you'll find options to open the app in a
+🧱 Modular architecture (components, services, hooks, state)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+📦 Product detail view with deep linking support
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+🗂 Folder Structure
 
-## Get a fresh project
+app/
+├── \_layout.tsx # Root stack layout
+├── (tabs)/ # Tab navigation layout
+│ ├── \_layout.tsx # Tabs setup (Home + Shop)
+│ ├── index.tsx # Home screen
+│ └── shop/
+│ ├── index.tsx # ProductList screen
+│ └── [id].tsx # Product detail screen
+components/
+├── FilterBar.tsx
+├── ProductCard.tsx
+store/
+├── useProductStore.ts # Zustand global state
+services/
+├── api.ts # API calls to FakeStoreAPI
+types/
+├── product.ts # Product types
 
-When you're ready, run:
+🚀 Getting Started
 
-```bash
-npm run reset-project
-```
+Clone the repository:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+git clone https://github.com/VictorG10/Native-Store-App.git
+cd Native-Store-App
 
-## Learn more
+Install dependencies:
 
-To learn more about developing your project with Expo, look at the following resources:
+yarn install
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+# or
 
-## Join the community
+npm install
 
-Join our community of developers creating universal apps.
+Run the app:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+npx expo start
+
+🧪 API Source
+
+This app uses FakeStoreAPI to retrieve product data and categories.
+
+🛠️ Tech Stack
+
+React Native (Expo)
+
+Expo Router
+
+Zustand (for state management)
+
+TypeScript
