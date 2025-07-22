@@ -57,7 +57,7 @@ Copy
 Edit
 npx expo start
 🧪 API Source
-Using FakeStoreAPI for products and categories.
+Using FakeStoreAPI: (https://fakestoreapi.com/products) for products and categories.
 
 🛠️ Tech Stack
 React Native (Expo)
