@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Button,
   FlatList,
   Image,
   Pressable,
@@ -16,19 +17,24 @@ export default function HomeScreen() {
   const router = useRouter();
   const [featured, setFeatured] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchFeatured = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("https://fakestoreapi.com/products?limit=4");
+      const data = await res.json();
+      setFeatured(data);
+    } catch (err: any) {
+      console.error("Error fetching featured products:", err);
+      setError("Failed to load featured products. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchFeatured = async () => {
-      try {
-        const res = await fetch("https://fakestoreapi.com/products?limit=4");
-        const data = await res.json();
-        setFeatured(data);
-      } catch (error) {
-        console.error("Error fetching featured products:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchFeatured();
   }, []);
 
@@ -44,7 +50,15 @@ export default function HomeScreen() {
       <Text style={styles.subtitle}>Your one-stop shop for mock products.</Text>
 
       <Text style={styles.sectionTitle}>Featured Products</Text>
-      {loading ? (
+
+      {error && (
+        <View style={styles.errorBox}>
+          <Text style={styles.errorText}>{error}</Text>
+          <Button title="Retry" onPress={fetchFeatured} />
+        </View>
+      )}
+
+      {loading && !error ? (
         <ActivityIndicator />
       ) : (
         <FlatList
@@ -81,5 +95,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 20,
     marginBottom: 10,
+  },
+  errorBox: {
+    padding: 12,
+    marginBottom: 12,
+    backgroundColor: "#ffe5e5",
+    borderColor: "#cc0000",
+    borderWidth: 1,
+    borderRadius: 6,
+  },
+  errorText: {
+    color: "#cc0000",
+    fontWeight: "bold",
+    marginBottom: 6,
+    textAlign: "center",
   },
 });

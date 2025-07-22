@@ -17,6 +17,8 @@ interface ProductStore {
   setSearchQuery: (query: string) => void;
   setPage: (page: number) => void;
   loadData: () => Promise<void>;
+  error: string | null;
+  setError: (message: string | null) => void;
 }
 
 export const useProductStore = create<ProductStore>((set) => ({
@@ -36,17 +38,20 @@ export const useProductStore = create<ProductStore>((set) => ({
   setPage: (page) => set({ page }),
 
   loadData: async () => {
-    set({ loading: true });
+    set({ loading: true, error: null });
     try {
       const [products, cats] = await Promise.all([
         fetchProducts(),
         fetchCategories(),
       ]);
       set({ products, categories: ["All", ...cats] });
-    } catch (error) {
-      console.error("Error loading store data:", error);
+    } catch (err: any) {
+      set({ error: err?.message || "Failed to load data" });
     } finally {
       set({ loading: false });
     }
   },
+
+  error: null,
+  setError: (error) => set({ error }),
 }));
