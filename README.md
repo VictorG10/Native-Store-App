@@ -1,9 +1,7 @@
 🛒 Native Store App
-
 A modern React Native e-commerce app built with Expo Router, Zustand, and FakeStoreAPI.
 
 ✨ Features
-
 🧭 Navigation with Expo Router (Tabs + Dynamic Screens)
 
 🛍 Product listing with filters, sort, pagination
@@ -11,6 +9,8 @@ A modern React Native e-commerce app built with Expo Router, Zustand, and FakeSt
 🔍 Search functionality
 
 🧰 Zustand global state for filters/products
+
+⚠️ Error UI with retry logic (for Home & Shop)
 
 🧱 Modular architecture (components, services, hooks, state)
 
@@ -30,41 +30,53 @@ components/
 ├── FilterBar.tsx
 ├── ProductCard.tsx
 store/
-├── useProductStore.ts # Zustand global state
+├── useProductStore.ts # Zustand global state with error UI support
 services/
 ├── api.ts # API calls to FakeStoreAPI
 types/
 ├── product.ts # Product types
-
 🚀 Getting Started
 
-Clone the repository:
-
-git clone https://github.com/VictorG10/Native-Store-App.git
-cd Native-Store-App
-
-Install dependencies:
-
-yarn install
+1. Clone the repository
+   bash
+   Copy
+   Edit
+   git clone https://github.com/VictorG10/Native-Store-App.git
+   cd Native-Store-App
+2. Install dependencies
+   bash
+   Copy
+   Edit
+   yarn install
 
 # or
 
-npm install
-
-Run the app:
-
+npm install 3. Start the app
+bash
+Copy
+Edit
 npx expo start
-
 🧪 API Source
-
-This app uses FakeStoreAPI to retrieve product data and categories.
+Using FakeStoreAPI for products and categories.
 
 🛠️ Tech Stack
-
 React Native (Expo)
 
 Expo Router
 
-Zustand (for state management)
+Zustand (State Management)
 
 TypeScript
+
+✅ Features Implemented
+Product listing with filters & pagination
+
+Product detail screen with router push
+
+Dynamic routing with Expo Router
+
+Centralized state via Zustand
+
+Error UI with retry button on API failure
+
+Modular architecture for scalability
