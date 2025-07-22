@@ -20,7 +20,7 @@ export default function HomeScreen() {
   useEffect(() => {
     const fetchFeatured = async () => {
       try {
-        const res = await fetch("https://fakestoreapi.com/products?limit=3");
+        const res = await fetch("https://fakestoreapi.com/products?limit=4");
         const data = await res.json();
         setFeatured(data);
       } catch (error) {
