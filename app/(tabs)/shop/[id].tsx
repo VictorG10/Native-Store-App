@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Text,
 } from "react-native";
-import { Product } from "../../types/product";
+import { Product } from "../../../types/product";
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams();

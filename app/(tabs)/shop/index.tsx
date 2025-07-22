@@ -18,7 +18,6 @@ import {
 const ITEMS_PER_PAGE = 6;
 
 export default function ProductListScreen() {
-  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>(["All"]);
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -27,6 +26,7 @@ export default function ProductListScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const load = async () => {
@@ -85,14 +85,7 @@ export default function ProductListScreen() {
             data={paginated}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
-              <Pressable
-                onPress={() =>
-                  router.push({
-                    pathname: "/product/[id]",
-                    params: { id: item.id.toString() },
-                  })
-                }
-              >
+              <Pressable onPress={() => router.push(`/shop/${item.id}`)}>
                 <ProductCard product={item} />
               </Pressable>
             )}

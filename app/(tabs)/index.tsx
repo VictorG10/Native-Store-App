@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   FlatList,
   Image,
+  Pressable,
   StyleSheet,
   Text,
   View,
@@ -49,7 +50,11 @@ export default function HomeScreen() {
         <FlatList
           data={featured}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <ProductCard product={item} />}
+          renderItem={({ item }) => (
+            <Pressable onPress={() => router.push(`/shop/${item.id}`)}>
+              <ProductCard product={item} />
+            </Pressable>
+          )}
         />
       )}
     </View>

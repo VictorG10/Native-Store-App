@@ -30,13 +30,13 @@ export default function TabsLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="product"
+      {/* <Tabs.Screen
+        name="[id].tsx"
         options={{
           href: null,
           tabBarStyle: { display: "none" },
         }}
-      />
+      /> */}
     </Tabs>
   );
 }
