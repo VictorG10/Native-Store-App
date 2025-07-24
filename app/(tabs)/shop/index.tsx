@@ -7,11 +7,12 @@ import {
   ActivityIndicator,
   Button,
   FlatList,
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
-  View,
 } from "react-native";
 
 const ITEMS_PER_PAGE = 6;
@@ -65,7 +66,11 @@ export default function ProductListScreen() {
   const hasMore = paginated.length < sorted.length;
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      style={styles.container}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+    >
       <Text style={styles.header}>🛍️ Product Listing</Text>
       {loading ? (
         <ActivityIndicator size="large" />
@@ -101,7 +106,7 @@ export default function ProductListScreen() {
           )}
         </>
       )}
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -115,5 +120,6 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 8,
     backgroundColor: "#fff",
+    color: "black",
   },
 });
