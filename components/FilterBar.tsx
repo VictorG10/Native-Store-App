@@ -28,7 +28,7 @@ const FilterBar: React.FC<Props> = ({
       <Picker
         selectedValue={selectedCategory}
         onValueChange={setSelectedCategory}
-        style={styles.picker}
+        style={[styles.picker, { height: 50 }]}
       >
         {categories.map((cat) => (
           <Picker.Item key={cat} label={cat} value={cat} />

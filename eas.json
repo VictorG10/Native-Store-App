@@ -20,5 +20,6 @@
   },
   "submit": {
     "production": {}
-  }
+  },
+  "plugins": ["@react-native-community/slider"]
 }

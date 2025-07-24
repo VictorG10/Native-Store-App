@@ -37,7 +37,9 @@ export default function ProductListScreen() {
   } = useProductStore();
 
   useEffect(() => {
-    loadData();
+    loadData().then(() => {
+      console.log("Categories:", categories);
+    });
   }, []);
 
   const filtered = useMemo(
@@ -82,7 +84,7 @@ export default function ProductListScreen() {
             onChangeText={setSearchQuery}
             style={styles.searchInput}
           />
-          <FilterBar
+          {/* <FilterBar
             categories={categories}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
@@ -90,7 +92,21 @@ export default function ProductListScreen() {
             setMaxPrice={setMaxPrice}
             sortOption={sortOption}
             setSortOption={setSortOption}
-          />
+          /> */}
+
+          {categories.length === 0 ? (
+            <Text>No categories available</Text>
+          ) : (
+            <FilterBar
+              categories={categories}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              maxPrice={maxPrice}
+              setMaxPrice={setMaxPrice}
+              sortOption={sortOption}
+              setSortOption={setSortOption}
+            />
+          )}
           <FlatList
             data={paginated}
             keyExtractor={(item) => item.id.toString()}
