@@ -26,7 +26,6 @@
     },
     "plugins": [
       "expo-router",
-
       [
         "expo-splash-screen",
         {
@@ -40,11 +39,10 @@
     "experiments": {
       "typedRoutes": true
     },
-
     "extra": {
       "router": {},
       "eas": {
-        "projectId": ""
+        "projectId": "f868748f-bf84-4d68-ba1b-1dcbed264e43"
       }
     },
     "owner": "vg10"
